@@ -1,0 +1,122 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "Represents a user of the platform",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "description": "The unique user ID" },
+        "name": { "type": "string", "description": "Human-readable name of the user" },
+        "email": { "type": "string", "description": "User email address" },
+        "role": { "type": "string", "description": "user or admin" },
+        "plan": { "type": "string", "description": "Current subscription plan (free, premium, enterprise)" },
+        "status": { "type": "string", "description": "active, suspended, or banned" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "When the user registered" }
+      },
+      "required": ["uid", "name", "email", "role", "plan", "status", "createdAt"]
+    },
+    "Bot": {
+      "title": "Bot",
+      "description": "Represents a Telegram Python bot deployment metadata",
+      "type": "object",
+      "properties": {
+        "botId": { "type": "string", "description": "Unique bot deployment ID" },
+        "ownerId": { "type": "string", "description": "UID of the owner user" },
+        "botName": { "type": "string", "description": "Name of the Telegram Bot" },
+        "token": { "type": "string", "description": "Encrypted Telegram Bot Token" },
+        "status": { "type": "string", "description": "running, stopped, offline, or build_failed" },
+        "uptime": { "type": "integer", "description": "Uptime duration in seconds" },
+        "pythonVersion": { "type": "string", "description": "Python version to use: 3.10, 3.11, or 3.12" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "When the bot was created" },
+        "description": { "type": "string", "description": "Description of the bot" },
+        "autoRestart": { "type": "boolean", "description": "Whether to auto-restart the bot on crash" },
+        "envVars": { "type": "string", "description": "JSON string or key-value pairs of environment variables" }
+      },
+      "required": ["botId", "ownerId", "botName", "token", "status", "uptime", "pythonVersion", "createdAt"]
+    },
+    "Plan": {
+      "title": "Plan",
+      "description": "Subscription plans definition managed by admins",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "description": "Name of the plan (e.g. Free, Premium, Enterprise)" },
+        "price": { "type": "number", "description": "Plan price per month" },
+        "maxBots": { "type": "integer", "description": "Max bots allowed on this plan" },
+        "limits": { "type": "string", "description": "Description of plan limits" }
+      },
+      "required": ["name", "price", "maxBots"]
+    },
+    "Ticket": {
+      "title": "Ticket",
+      "description": "Support tickets for user-admin communications",
+      "type": "object",
+      "properties": {
+        "ticketId": { "type": "string", "description": "Unique ticket ID" },
+        "userId": { "type": "string", "description": "UID of the ticket owner" },
+        "subject": { "type": "string", "description": "Subject of the ticket" },
+        "message": { "type": "string", "description": "Initial ticket message" },
+        "status": { "type": "string", "description": "open, replied, closed" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "When the ticket was opened" },
+        "replies": { "type": "string", "description": "JSON serialized string of the replies timeline" }
+      },
+      "required": ["ticketId", "userId", "subject", "message", "status", "createdAt"]
+    },
+    "Announcement": {
+      "title": "Announcement",
+      "description": "System broad announcement notices",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string", "description": "Title of the statement" },
+        "message": { "type": "string", "description": "Announcement body message" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "When the announcement was published" }
+      },
+      "required": ["title", "message", "createdAt"]
+    },
+    "SubscriptionRequest": {
+      "title": "SubscriptionRequest",
+      "description": "Payment and subscription plan requests submitted by users for admin approval",
+      "type": "object",
+      "properties": {
+        "requestId": { "type": "string", "description": "Unique transaction request ID" },
+        "userId": { "type": "string", "description": "UID of the requester" },
+        "userName": { "type": "string", "description": "Name of the requester" },
+        "userEmail": { "type": "string", "description": "Email of the requester" },
+        "planId": { "type": "string", "description": "Dynamic ID of the plan" },
+        "planName": { "type": "string", "description": "Name of the plan" },
+        "price": { "type": "number", "description": "Plan price" },
+        "paymentMethod": { "type": "string", "enum": ["Bkash", "Nagad"], "description": "Selected payment handler" },
+        "senderNumber": { "type": "string", "description": "Bkash/Nagad sender phone number" },
+        "transactionId": { "type": "string", "description": "TrxID confirmation code" },
+        "status": { "type": "string", "enum": ["pending", "approved", "rejected"], "description": "Verification status" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Request creation timestamp" }
+      },
+      "required": ["requestId", "userId", "userName", "userEmail", "planId", "planName", "price", "paymentMethod", "senderNumber", "transactionId", "status", "createdAt"]
+    }
+  },
+  "firestore": {
+    "users/{userId}": {
+      "schema": "User",
+      "description": "User profiles and meta collections"
+    },
+    "bots/{botId}": {
+      "schema": "Bot",
+      "description": "Metadata collection matching active and offline bot workspaces"
+    },
+    "plans/{planId}": {
+      "schema": "Plan",
+      "description": "Subscription blueprints defined by managers"
+    },
+    "tickets/{ticketId}": {
+      "schema": "Ticket",
+      "description": "Customer care communications tickets"
+    },
+    "announcements/{announcementId}": {
+      "schema": "Announcement",
+      "description": "Notices published to all authenticated dashboard panels"
+    },
+    "subscription_requests/{requestId}": {
+      "schema": "SubscriptionRequest",
+      "description": "User transaction applications for plans upgrade"
+    }
+  }
+}
