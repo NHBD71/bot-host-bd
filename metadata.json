@@ -1,0 +1,6 @@
+{
+  "name": "BotHost BD",
+  "description": "High-performance Python Telegram Bot Hosting platform allowing multi-version isolated process deploys and analytics dashboard metrics.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
