@@ -1261,7 +1261,7 @@ export default function Dashboard({ userProfile, onLogout, onEnterAdmin }: Dashb
                     <span className="w-2.5 h-2.5 rounded-full bg-pink-500 inline-block" /> bKash Personal:
                   </span>
                   <span className="font-mono text-white font-bold select-all bg-white/5 px-2 py-0.5 rounded cursor-pointer">
-                    01951551000
+                    01Xxxxxxxxx
                   </span>
                 </div>
                 <div className="flex justify-between items-center text-xs">
@@ -1269,7 +1269,7 @@ export default function Dashboard({ userProfile, onLogout, onEnterAdmin }: Dashb
                     <span className="w-2.5 h-2.5 rounded-full bg-orange-500 inline-block" /> Nagad Personal:
                   </span>
                   <span className="font-mono text-white font-bold select-all bg-white/5 px-2 py-0.5 rounded cursor-pointer">
-                    01851551000
+                    01xxxxxxxx
                   </span>
                 </div>
                 <div className="text-[10px] text-gray-500 leading-relaxed text-center pt-2 border-t border-white/5 font-mono">
